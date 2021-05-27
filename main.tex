@@ -4,7 +4,7 @@
 \usepackage[english,russian]{babel}
 \usepackage[12pt]{extsizes}
 \usepackage{hyperref}
-\usepackage{listings}
+\usepackage{enumitem}
 
 \usepackage[left=4cm,right=3cm,top=3cm,bottom=3cm,bindingoffset=0cm]{geometry}
 \tolerance=10000 % разреженность строки
@@ -70,15 +70,15 @@
 Произведено перепроектирование существующей программной структуры системы для реализации в системе новых видов выдаваемых для решения студентами задач. Внесены структурные решения и описан пользовательский интерфейс, реализующие новые виды выдаваемых задач и способы взаимодействия с ними пользователей. Применён инструмент для изоляции процесса компиляции и запуска пользовательских программ в системе с целью обеспечения безопасности на сервере. Внедрено решение для редактирования пользовательского текста.
 \end{abstract}
 
-\selectlanguage{english}
-\begin{abstract}
-This paper describes the results achieved in the course of expanding the functionality of the distance learning system "MSU Contest", improving the process of checking students' work and ensuring safety when compiling and running user programs in the system.
+% \selectlanguage{english}
+% \begin{abstract}
+% This paper describes the results achieved in the course of expanding the functionality of the distance learning system "MSU Contest", improving the process of checking students' work and ensuring safety when compiling and running user programs in the system.
 
-The existing software structure of the system was redesigned for the implementation in the system of new types of tasks issued for solving by students. Structural solutions are introduced and a user interface is described that implements new types of issued tasks and how users interact with them. A tool has been used to isolate the compilation process and launch of user programs in the system in order to ensure security on the server. Implemented a custom text editing solution.
-\end{abstract}
+% The existing software structure of the system was redesigned for the implementation in the system of new types of tasks issued for solving by students. Structural solutions are introduced and a user interface is described that implements new types of issued tasks and how users interact with them. A tool has been used to isolate the compilation process and launch of user programs in the system in order to ensure security on the server. Implemented a custom text editing solution.
+% \end{abstract}
 
+% \selectlanguage{russian}
 \addtocounter{page}{1} % добавляет единицу к нумерации страниц, начиная с данной
-\selectlanguage{russian}
 
 
 
@@ -101,20 +101,21 @@ The existing software structure of the system was redesigned for the implementat
     \setlength\itemsep{-0.2em}
     \item задача с возможностью указать варианты ответа;
     \item задача с возможностью предоставить текстовый ответ;
-    \item задача с возможностью загрузить файлы в качестве ответа.
+    \item задача с возможностью загрузить файлы в качестве ответа;
+    \item задача, содержащая подзадачи вышеперечисленных типов.
 \end{itemize}
 
-Реализация новых типов выдаваемых (для решения студентами) задач, схожих по общему смыслу с существующим единственным видом задач, но отличным в деталях, может потребовать предварительного внесения правок и добавления новых свойств и механизмов в существующую структуру. В частности, \emph{сущность, представляющая собой выдаваемую студентам задачу}, а также \emph{сущность, представляющая решение задачи}, и интерфейс взаимодействия с этими двумя сущностями претерпевают изменения в сторону расширения количества включаемых атрибутов и механизмов взаимодействия с ними.
+Реализация новых типов выдаваемых (для решения студентами) задач, схожих по общему смыслу с существующим единственным видом задач, но отличным в деталях, требует предварительного внесения правок и добавления новых свойств и механизмов в существующую структуру. В частности, \emph{сущность, представляющая собой выдаваемую студентам задачу}, а также \emph{сущность, представляющая решение задачи}, и интерфейс взаимодействия с этими двумя сущностями претерпевают изменения в сторону расширения количества включаемых атрибутов и механизмов взаимодействия с ними.
 
 Реализация типа задачи подразумевает также реализацию пользовательского интерфейса для взаимодействия пользователей различных ролей с конкретным типом задач: создание и редактирование задач, решение задачи и решение задачи по назначению преподавателем, проверка решения задачи.
 
 Теперь задача включает обязательные атрибуты с информацией о критериях оценивания в баллах. От пользователя требуется ввести максимальный балл, который можно получить за решение задачи, и критерии (необходимое количество баллов) для получения оценки 3, 4 и 5.
 
-Реализован \emph{тип задачи «Варианты ответа»} с возможностью при создании указать возможные варианты ответа и отметить правильные. Проверка решения такой задачи осуществляется автоматически, выносится вердикт и выставляется оценка. При решении задачи студент получает форму, которая позволяет выбрать один или несколько вариантов в зависимости от количества действительно правильных ответов, указанных при создании задачи.
+Реализован \emph{тип задачи «Варианты ответа»} с возможностью при создании указать возможные варианты ответа и отметить правильные. Проверка решения такой задачи осуществляется автоматически, выносится вердикт и выставляется оценка. При решении задачи студент получает форму, которая позволяет выбрать один или несколько вариантов в зависимости от количества действительно правильных ответов, указанных при создании задачи. Частичная реализация представлена в следующих листингах в приложении: \ref{code:problem}.
 
 Реализован \emph{тип задачи «Текст»}, в качестве решения которой принимается текст, набранный студентом в поле на веб-странице решения задачи. Задачи данного типа проверяются преподавателем.
 
-Аналогичный тип задачи «Файлы» подразумевает решение в виде прикреплённых файлов определённого типа.
+Аналогичный \emph{тип задачи «Файлы»} подразумевает решение в виде прикреплённых файлов определённого типа.
 
 Также для задачи реализована возможность \emph{содержать набор подзадач} (это задача типа «Тест»). Для создания такой задачи пользователь при создании задачи (преподаватель или администратор системы) выбирает существующие (ранее созданные) задачи, которые требуется включить в качестве подзадач. Таким образом новая функциональность позволяет агрегировать несколько задач в набор. Важно отметить, что такой набор не может быть включен как подзадача.
 
@@ -127,9 +128,9 @@ The existing software structure of the system was redesigned for the implementat
 
 Изначально имеющийся в системе тип задач «Программа» поддерживает автоматическую проверку решений. Для решения задач этого типа студент загружает набор исходных файлов программы. После загрузки файлов студентом в системе инициируется компиляция исходных файлов и запуск полученного в результате компиляции исполняемого файла.
 
-Данный процесс может быть небезопасным для операционной системы на сервере, где осуществляется его запуск, например, в случаях, когда студент неумышленно допускает ошибки в реализации сдаваемой программы или когда студент умышленно реализует вредоносную программу.
+Данный процесс может быть небезопасным для операционной системы на сервере, где осуществляется его выполнение, например, в случаях, когда студент неумышленно допускает ошибки в реализации сдаваемой программы или когда студент умышленно реализует вредоносную программу.
 
-Одним из способов изоляции этого процесса является его запуск на отдельной виртуальной машине. Но многократное создание и параллельное поддержание нескольких виртуальных машин является ресурсозатратным для физической машины. Другой способ, который и был выбран для применение, --- это \emph{механизм контейнеризации}.
+Одним из способов изоляции этого процесса является его запуск на отдельной виртуальной машине. Но многократное создание и параллельное поддержание нескольких виртуальных машин является ресурсозатратным для физической машины. Другой способ, который и был выбран для применения, --- это \emph{механизм контейнеризации}.
 
 Контейнеризация --- это парадигма операционной системы, в которой ядро допускает существование нескольких изолированных экземпляров пользовательского пространства. Такие экземпляры, называемые \emph{контейнерами}, могут выглядеть как настоящий компьютер с точки зрения запущенных в нём программ. Компьютерная программа, работающая в обычной операционной системе, может видеть все ресурсы (подключенные устройства, файлы и папки, общие сетевые ресурсы, мощность процессора, поддающиеся количественной оценке аппаратные возможности) этого компьютера. Однако программы, работающие внутри контейнера, могут видеть только его содержимое и устройства, назначенные контейнеру.
 
@@ -188,6 +189,352 @@ Docker --- это набор программных продуктов, кото
 \endgroup
 \newpage
 
+\section{Приложение}
+
+
+\begin{enumerate}[wide, labelindent=0pt]
+    \item {
+    Частичный код модели \texttt{Problem}, представляющей сущность «Задача»:
+    \label{code:problem}
+    \begin{verbatim}
+class Problem(Model):
+    ...
+
+    TYPE_CHOICES = (
+        ('Program', "Способ ответа: программа"),
+        ('Text', "Способ ответа: текст"),
+        ('Files', "Способ ответа: файлы"),
+        ('Options', "Способ ответа: варианты"),
+        ('Test', "Тест"))
+
+    DEFAULT_SCORE_MAX = 100
+    DEFAULT_SCORE_FOR_5 = 90
+    DEFAULT_SCORE_FOR_4 = 75
+    DEFAULT_SCORE_FOR_3 = 50
+
+    sub_problems = models.ManyToManyField(
+        'self',
+        through='SubProblem',
+        through_fields=('problem', 'sub_problem'),
+        symmetrical=False,
+        verbose_name="Подзадачи")
+    type = models.CharField(
+        max_length=8,
+        choices=TYPE_CHOICES,
+        verbose_name="Тип")
+    score_max = models.PositiveSmallIntegerField(
+        default=DEFAULT_SCORE_MAX,
+        verbose_name="Максимальная оценка в баллах")
+    score_for_5 = models.PositiveSmallIntegerField(
+        default=DEFAULT_SCORE_FOR_5,
+        verbose_name="Баллов для 5")
+    score_for_4 = models.PositiveSmallIntegerField(
+        default=DEFAULT_SCORE_FOR_4,
+        verbose_name="Баллов для 4")
+    score_for_3 = models.PositiveSmallIntegerField(
+        default=DEFAULT_SCORE_FOR_3,
+        verbose_name="Баллов для 3")
+    ...
+
+    def save(self, *args, **kwargs):
+        if self.type not in {'Program', 'Options'}:
+            self.is_testable = False
+        super().save(*args, **kwargs)
+    ...
+    \end{verbatim}
+}
+\item {
+    Частичный код модели \texttt{Submission}, представляющей сущность «Посылка» (то есть решение задачи).
+    \label{code:submission}
+    \begin{verbatim}
+class Submission(Model):
+    STATUS_CHOICES = (
+        ('OK', "Задача решена"),
+        ('TF', "Тест провален"),
+        ...)
+    DEFAULT_STATUS = 'UN'
+    DEFAULT_SCORE = 0
+
+    problem = models.ForeignKey(
+        Problem,
+        on_delete=models.CASCADE,
+        verbose_name="Задача")
+    assignment = models.ForeignKey(
+        Assignment,
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name="Задание")
+    main_submission = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        related_name="sub_submissions",
+        verbose_name="Подпосылки")
+    options = models.ManyToManyField(
+        Option,
+        verbose_name="Варианты ответа")
+    status = models.CharField(
+        max_length=2,
+        choices=STATUS_CHOICES,
+        default=DEFAULT_STATUS,
+        verbose_name="Статус")
+    score = models.PositiveSmallIntegerField(
+        default=DEFAULT_SCORE,
+        verbose_name="Оценка в баллах")
+    text = RichTextField(
+        null=True,
+        blank=True,
+        verbose_name="Текст ответа")
+    ...
+
+    def save(self, *args, **kwargs):
+        created = self._state.adding
+
+        ...
+
+        if (created
+                and self.problem.type in ['Program']
+                    or not created):
+            self.update_assignment()
+
+    \end{verbatim}
+}
+\item {
+    Частичный код модели \texttt{Submission}, представляющей сущность «Посылка» (то есть решение задачи).
+    \label{code:update_test_score}
+    \begin{verbatim}
+class Submission(Model):
+    ...
+
+    def update_test_score(self):
+        max_score = sum(
+            self.problem.sub_problems.values_list(
+                'problem__score_max', flat=True))
+        scores_sum = sum(
+            self.sub_submissions.values_list(
+                'score', flat=True))
+        percentage = scores_sum * 100 // max_score
+        self.status = 'OK'
+        if percentage >= self.problem.score_for_5:
+            self.score = 5
+        elif percentage >= self.problem.score_for_4:
+            self.score = self.problem.score_for_4
+        elif percentage >= self.problem.score_for_3:
+            self.score = self.problem.score_for_3
+        else:
+            self.score = 2
+            self.status = 'TF'
+        self.save()
+    ...
+    \end{verbatim}
+}
+\item {
+    Частичный код модели \texttt{Submission}, представляющей сущность «Посылка» (то есть решение задачи).
+    \begin{verbatim}
+class Submission(Model):
+    ...
+
+    def update_options_score(self):
+        correct_option_ids = set(
+            self.problem.option_set.filter(
+                is_correct=True).values_list(
+                    'id', flat=True))
+        chosen_option_ids = set(
+            self.options.values_list(
+                'id', flat=True))
+        if chosen_option_ids == correct_option_ids:
+            self.score = self.problem.score_max
+            self.status = 'OK'
+        else:
+            self.score = 0
+            self.status = 'WA'
+        self.save()
+    ...
+    \end{verbatim}
+}
+\item {
+    Частичный код представления \texttt{ProblemCreate} создания задачи:
+    \label{code:problemcreate}
+    \begin{verbatim}     
+class ProblemCreate(LoginRedirectPermissionRequiredMixin,
+                    CreateView):
+    model = Problem
+    template_name = 'contests/problem/problem_form.html'
+    permission_required = 'contests.add_problem'
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.storage = dict()
+
+    def dispatch(self, request, *args, **kwargs):
+        self.storage['contest'] = get_object_or_404(Contest,
+            id=kwargs.pop('contest_id'))
+        self.storage['type'] = kwargs.get('type')
+        if self.storage['type'] == 'Options':
+            OptionFormSet = inlineformset_factory(
+                parent_model=Problem,
+                model=Option,
+                form=OptionForm,
+                formset=OptionBaseFormSet,
+                fields=('text', 'is_correct'), 
+                extra=0,
+                min_num=2, 
+                max_num=20,
+                validate_min=True,
+                validate_max=True)
+            if request.method == 'GET':
+                formset = OptionFormSet()
+            else:
+                formset = OptionFormSet(
+                    data=request.POST, files=request.FILES)
+            self.storage['formset'] = formset
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form_class(self):
+        if self.storage['type'] == 'Program':
+            return ProblemProgramForm
+        elif self.storage['type'] == 'Test':
+            return ProblemTestForm
+        else:
+            return ProblemCommonForm
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['contest'] = self.storage['contest']
+        initial['type'] = self.storage['type']
+        initial['number'] = Problem.objects.get_new_number(
+            self.storage['contest'])
+        if self.storage['type'] == 'Program':
+            initial['title'] = "Задача "
+        elif self.storage['type'] == 'Test':
+            initial['title'] = "Тест "
+        else:
+            initial['title'] = "Вопрос "
+        initial['title'] += str(initial['number'])
+        return initial
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        if self.storage['type'] == 'Options':
+            formset = self.storage.get('formset')
+            if formset.is_valid():
+                self.object = form.save()
+                formset.instance = self.object
+                formset.save()
+                return HttpResponseRedirect(
+                    self.get_success_url())
+            else:
+                self.storage['formset'] = formset
+                return self.form_invalid(form)
+        return super().form_valid(form)
+    ...
+    \end{verbatim}
+}
+\item {
+    Частичный код представления \texttt{SubmissionCreate} создания посылки:
+    \label{code:submissioncreate}
+    \begin{verbatim}
+class SubmissionCreate(LoginRedirectPermissionRequiredMixin,
+                       CreateView):
+    model = Submission
+    template_name = 'contests/submission/submission_form.html'
+    permission_required = 'contests.add_submission'
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.storage = dict()
+
+    def dispatch(self, request, *args, **kwargs):
+        problem = get_object_or_404(Problem,
+            id=kwargs.pop('problem_id'))
+        self.storage['problem'] = problem
+
+        main_submission_id = kwargs.pop('submission_id', None)
+        if main_submission_id:
+            main_submission = get_object_or_404(Submission, 
+                id=main_submission_id)
+            self.storage['main_submission'] = main_submission
+            current_problem = problem.sub_problems.exclude(
+                submission__in=main_submission.sub_submissions.all()
+            ).first()
+            if not current_problem:
+                return HttpResponseRedirect(
+                    reverse(
+                        'contests:submission-detail',
+                        kwargs={'pk': main_submission.id}))
+            self.storage['problem'] = current_problem
+        elif problem.type == 'Test':
+            self.storage['main_problem'] = problem
+            self.storage['problem'] = problem.sub_problems.first()
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['owner'] = self.request.user
+        kwargs['problem'] = self.storage['problem']
+        return kwargs
+
+    def get_form_class(self):
+        problem = self.storage['problem']
+        if problem.type == 'Text':
+            return SubmissionTextForm
+        elif problem.type == 'Options':
+            return SubmissionOptionsForm
+        elif problem.type == 'Files':
+            return SubmissionFilesForm
+        else:
+            return SubmissionAttachmentForm
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        form.instance.problem = self.storage['problem']
+
+        try:
+            form.instance.assignment = Assignment.objects.get(
+                user=self.request.user,
+                problem=self.storage['problem'])
+        except Assignment.DoesNotExist:
+            pass
+
+        main_problem = self.storage.get('main_problem')
+        if main_problem:
+            self.storage['main_submission'] = Submission.objects.create(
+                problem=main_problem,
+                owner=self.request.user,
+                assignment=Assignment.objects.filter(
+                    user=self.request.user,
+                    problem=main_problem).first())
+
+        form.instance.main_submission = self.storage.get(
+            'main_submission')
+
+        self.object = form.save()
+        if (self.object.problem.type == 'Program'
+                and self.object.problem.is_testable):
+            task = evaluate_submission.delay(
+                self.object.pk, self.request.user.id)
+            self.object.task_id = task.id
+            self.object.save()
+        if self.object.problem.type == 'Options':
+            self.object.update_options_score()
+        Activity.objects.on_submission_created(self.object)
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        main_submission = self.storage.get('main_submission')
+        if main_submission:
+            return reverse(
+                'contests:submission-continue',
+                kwargs={
+                    'problem_id': main_submission.problem.id,
+                    'submission_id': main_submission.id
+                })
+        return super().get_success_url()
+    ...
+    \end{verbatim}
+}
+\end{enumerate}
 
 
 \end{document}
